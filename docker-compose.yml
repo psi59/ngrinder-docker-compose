@@ -1,0 +1,24 @@
+version: '3'
+services: 
+  ngrinder.contoller:
+    container_name: 'ngrinder.controller'
+    image: 'ngrinder/controller'
+    volumes: 
+      - $HOME/ngrinder-controller:/opt/ngrinder-controller
+    ports: 
+      - 80:80
+    networks: 
+      - ngrinder
+  ngrinder.agent:
+    container_name: 'ngrinder.agent'
+    image: 'ngrinder/agent'
+    volumes: 
+      - $HOME/ngrinder-agent:/opt/ngrinder-agent
+    command: 
+      - 'ngrinder.controller:80'
+    networks: 
+      - ngrinder
+
+networks: 
+  ngrinder:
+    
